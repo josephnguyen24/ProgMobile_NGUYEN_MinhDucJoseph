@@ -12,7 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My Application',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      theme: ThemeData(
+        appBarTheme: const AppBarThemeData(centerTitle: false),
+        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+      ),
       home: const LoginPage(),
     );
   }
