@@ -7,11 +7,11 @@
       "name": "cours_01",
       "version": "1.0.0+1",
       "dependencies": [
-        "flutter"
+        "flutter",
+        "flutter_svg"
       ],
       "devDependencies": [
         "flutter_lints",
-        "flutter_svg",
         "flutter_test",
         "openfoodfacts_flutter_lints"
       ]
