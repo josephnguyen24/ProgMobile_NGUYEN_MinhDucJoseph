@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formation_flutter/l10n/app_localizations.dart';
+import 'package:formation_flutter/res/app_colors.dart';
+import 'package:formation_flutter/res/app_icons.dart';
+import 'package:formation_flutter/res/app_vectorial_images.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
