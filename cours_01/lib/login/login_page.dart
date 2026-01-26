@@ -1,5 +1,6 @@
 import 'package:cours_01/res/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -17,17 +18,32 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          EmailAddress(),
-          ContinueButton(),
-          OrDivider(),
-          ContinueWithButton(
-            label: 'Continue with Apple',
-            asset: 'assets/apple_logo.svg',
-            onPressed: () {},
+      body: Center(
+        child: FractionallySizedBox(
+          widthFactor: 0.8,
+          child: Column(
+            children: [
+              EmailAddress(),
+              ContinueButton(),
+              OrDivider(),
+              ContinueWithButton(
+                label: 'Continue with Apple',
+                asset: 'assets/apple_logo.svg',
+                onPressed: () {},
+              ),
+              ContinueWithButton(
+                label: 'Continue with Google',
+                asset: 'assets/google_logo.svg',
+                onPressed: () {},
+              ),
+              ContinueWithButton(
+                label: 'Continue with Facebook',
+                asset: 'assets/facebook_logo.svg',
+                onPressed: () {},
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -65,7 +81,17 @@ class ContinueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return FilledButton(
+      style: FilledButton.styleFrom(
+        foregroundColor: AppColors.buttonPrimaryText,
+        backgroundColor: AppColors.buttonPrimaryBackground,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+      ),
+      onPressed: onPressed,
+      child: Text('Continue', style: TextStyle(fontWeight: FontWeight.bold)),
+    );
   }
 }
 
@@ -74,7 +100,13 @@ class OrDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Row(
+      children: [
+        Expanded(child: Divider()),
+        Text('Or', style: TextStyle(color: AppColors.textSecondary)),
+        Expanded(child: Divider()),
+      ],
+    );
   }
 }
 
@@ -92,6 +124,22 @@ class ContinueWithButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return FilledButton(
+      style: FilledButton.styleFrom(
+        foregroundColor: AppColors.buttonSecondaryText,
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          side: BorderSide(color: AppColors.buttonSecondaryBackground),
+        ),
+      ),
+      onPressed: onPressed,
+      child: Row(
+        children: [
+          SvgPicture.asset(asset),
+          Expanded(child: Text(label, textAlign: TextAlign.center)),
+        ],
+      ),
+    );
   }
 }
