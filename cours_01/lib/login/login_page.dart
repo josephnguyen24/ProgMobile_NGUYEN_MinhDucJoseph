@@ -1,3 +1,4 @@
+import 'package:cours_01/res/colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -16,6 +17,18 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ),
+      body: Column(
+        children: [
+          EmailAddress(),
+          ContinueButton(),
+          OrDivider(),
+          ContinueWithButton(
+            label: 'Continue with Apple',
+            asset: 'assets/apple_logo.svg',
+            onPressed: () {},
+          ),
+        ],
+      ),
     );
   }
 }
@@ -25,7 +38,23 @@ class EmailAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return TextField(
+      autofocus: false,
+      style: TextStyle(color: AppColors.textPrimary),
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.email_outlined),
+        hintText: 'Email Address',
+        hintStyle: TextStyle(color: AppColors.textSecondary),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: AppColors.inputFieldActiveBackground),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide(color: AppColors.inputFieldInactiveBackground),
+        ),
+      ),
+    );
   }
 }
 
@@ -50,7 +79,16 @@ class OrDivider extends StatelessWidget {
 }
 
 class ContinueWithButton extends StatelessWidget {
-  const ContinueWithButton({super.key});
+  const ContinueWithButton({
+    required this.asset,
+    required this.label,
+    required this.onPressed,
+    super.key,
+  });
+
+  final String label;
+  final String asset;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
