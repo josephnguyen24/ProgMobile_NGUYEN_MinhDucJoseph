@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
 
+  static const double IMAGE_HEIGHT = 300.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,8 +14,15 @@ class ProductPage extends StatelessWidget {
             top: 0.0,
             start: 0.0,
             end: 0.0,
-            height: 200.0,
+            height: IMAGE_HEIGHT,
             child: _ProductPicture(),
+          ),
+          PositionedDirectional(
+            top: IMAGE_HEIGHT - 16,
+            start: 0.0,
+            end: 0.0,
+            bottom: 0.0,
+            child: _ProductDetails(),
           ),
         ],
       ),
@@ -38,17 +47,32 @@ class _ProductDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(decoration: BoxDecoration());
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          Text('Text 1'),
+          Text('Text 2'),
+          _ProductData(label: 'Quantité', value: '200g'),
+        ],
+      ),
+    );
   }
 }
 
 /// Faire ici Quantité & Vendu
 class _ProductData extends StatelessWidget {
-  const _ProductData({super.key});
+  const _ProductData({super.key, required this.label, required this.value});
+
+  final String label;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Row(children: [Text(label), Spacer(), Text(value)]);
   }
 }
 
