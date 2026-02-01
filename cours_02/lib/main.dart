@@ -27,10 +27,7 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(headlineMedium: TextStyle()),
       ),
       debugShowCheckedModeBanner: false,
-      home: ProductInheritedWidget(
-        product: generateProduct(),
-        child: const ProductPage(),
-      ),
+      home: const ProductPage(),
     );
   }
 }

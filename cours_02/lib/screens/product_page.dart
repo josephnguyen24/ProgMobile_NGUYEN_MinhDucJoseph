@@ -1,9 +1,12 @@
+import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:formation_flutter/l10n/app_localizations.dart';
 import 'package:formation_flutter/model/product.dart';
 import 'package:formation_flutter/res/app_colors.dart';
 import 'package:formation_flutter/res/app_icons.dart';
 import 'package:formation_flutter/res/app_theme_extension.dart';
+import 'package:formation_flutter/screens/api.dart';
 import 'package:provider/provider.dart';
 
 class ProductNotifier extends ChangeNotifier {
@@ -12,13 +15,27 @@ class ProductNotifier extends ChangeNotifier {
   Product? get product => _product;
 
   ProductNotifier() {
-    EcranAttente();
+    loadProduct();
   }
 
-  void EcranAttente() {
-    _product = generateProduct();
+  Future<void> loadProduct() async {
+    try {
+      final dio = Dio();
+      final response = await dio.get(
+        'https://api.formation-flutter.fr/v2/getProduct',
+        queryParameters: {'barcode': '5000159484695'},
+      );
 
-    notifyListeners();
+      final jsonData = jsonDecode(response.data);
+      final apiResponse = APIResponse.fromJSON(jsonData);
+
+      if (apiResponse.product != null) {
+        _product = apiResponse.product!.toProduct();
+        notifyListeners();
+      }
+    } catch (e) {
+      print('Erreur lors du chargement du produit: $e');
+    }
   }
 }
 
@@ -35,9 +52,9 @@ class ProductPage extends StatelessWidget {
         body: Consumer<ProductNotifier>(
           builder: (context, notifier, child) {
             if (notifier.product == null) {
-              return const Attente();
+              return const _LoadingView();
             }
-            return ContentView(product: notifier.product!);
+            return _ContentView(product: notifier.product!);
           },
         ),
       ),
@@ -45,8 +62,8 @@ class ProductPage extends StatelessWidget {
   }
 }
 
-class Attente extends StatelessWidget {
-  const Attente();
+class _LoadingView extends StatelessWidget {
+  const _LoadingView();
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +71,8 @@ class Attente extends StatelessWidget {
   }
 }
 
-class ContentView extends StatelessWidget {
-  const ContentView({required this.product});
+class _ContentView extends StatelessWidget {
+  const _ContentView({required this.product});
 
   final Product product;
 
