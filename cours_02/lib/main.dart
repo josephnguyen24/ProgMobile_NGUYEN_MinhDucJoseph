@@ -5,6 +5,7 @@ import 'package:formation_flutter/res/app_colors.dart';
 import 'package:formation_flutter/res/app_theme_extension.dart';
 import 'package:formation_flutter/screens/inherited_widget.dart';
 import 'package:formation_flutter/screens/product_page.dart';
+import 'package:formation_flutter/model/product.dart';
 
 void main() {
   runApp(const MyApp());

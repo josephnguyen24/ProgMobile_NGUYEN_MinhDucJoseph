@@ -4,7 +4,23 @@ import 'package:formation_flutter/model/product.dart';
 import 'package:formation_flutter/res/app_colors.dart';
 import 'package:formation_flutter/res/app_icons.dart';
 import 'package:formation_flutter/res/app_theme_extension.dart';
-import 'package:formation_flutter/screens/inherited_widget.dart';
+import 'package:provider/provider.dart';
+
+class ProductNotifier extends ChangeNotifier {
+  Product? _product;
+
+  Product? get product => _product;
+
+  ProductNotifier() {
+    EcranAttente();
+  }
+
+  void EcranAttente() {
+    _product = generateProduct();
+
+    notifyListeners();
+  }
+}
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -13,56 +29,84 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = ProductInheritedWidget.of(context).product;
-
-    return Scaffold(
-      body: SizedBox.expand(
-        child: Stack(
-          children: [
-            PositionedDirectional(
-              top: 0.0,
-              start: 0.0,
-              end: 0.0,
-              height: IMAGE_HEIGHT,
-              child: Image.network(
-                product.picture ?? '',
-                fit: BoxFit.cover,
-                cacheHeight:
-                    (IMAGE_HEIGHT * MediaQuery.devicePixelRatioOf(context))
-                        .toInt(),
-              ),
-            ),
-            PositionedDirectional(
-              top: IMAGE_HEIGHT - 16.0,
-              start: 0.0,
-              end: 0.0,
-              bottom: 0.0,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(16.0),
-                  ),
-                  color: Colors.white,
-                ),
-                padding: EdgeInsetsDirectional.symmetric(
-                  horizontal: 20.0,
-                  vertical: 30.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(product.name ?? '', style: context.theme.title1),
-                    Text(
-                      product.brands?.join(', ') ?? '',
-                      style: context.theme.title2,
-                    ),
-                    Scores(),
-                  ],
-                ),
-              ),
-            ),
-          ],
+    return ChangeNotifierProvider(
+      create: (context) => ProductNotifier(),
+      child: Scaffold(
+        body: Consumer<ProductNotifier>(
+          builder: (context, notifier, child) {
+            if (notifier.product == null) {
+              return const Attente();
+            }
+            return ContentView(product: notifier.product!);
+          },
         ),
+      ),
+    );
+  }
+}
+
+class Attente extends StatelessWidget {
+  const Attente();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: CircularProgressIndicator());
+  }
+}
+
+class ContentView extends StatelessWidget {
+  const ContentView({required this.product});
+
+  final Product product;
+
+  static const double IMAGE_HEIGHT = 300.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: Stack(
+        children: [
+          PositionedDirectional(
+            top: 0.0,
+            start: 0.0,
+            end: 0.0,
+            height: IMAGE_HEIGHT,
+            child: Image.network(
+              product.picture ?? '',
+              fit: BoxFit.cover,
+              cacheHeight:
+                  (IMAGE_HEIGHT * MediaQuery.devicePixelRatioOf(context))
+                      .toInt(),
+            ),
+          ),
+          PositionedDirectional(
+            top: IMAGE_HEIGHT - 16.0,
+            start: 0.0,
+            end: 0.0,
+            bottom: 0.0,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+                color: Colors.white,
+              ),
+              padding: EdgeInsetsDirectional.symmetric(
+                horizontal: 20.0,
+                vertical: 30.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(product.name ?? '', style: context.theme.title1),
+                  Text(
+                    product.brands?.join(', ') ?? '',
+                    style: context.theme.title2,
+                  ),
+                  Scores(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -73,7 +117,7 @@ class Scores extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = ProductInheritedWidget.of(context).product;
+    final product = Provider.of<ProductNotifier>(context).product!;
 
     return Column(
       children: [
