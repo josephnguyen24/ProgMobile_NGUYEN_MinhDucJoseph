@@ -4,6 +4,7 @@ import 'package:formation_flutter/model/product.dart';
 import 'package:formation_flutter/res/app_colors.dart';
 import 'package:formation_flutter/res/app_icons.dart';
 import 'package:formation_flutter/res/app_theme_extension.dart';
+import 'package:formation_flutter/screens/inherited_widget.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -12,6 +13,8 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product = ProductInheritedWidget.of(context).product;
+
     return Scaffold(
       body: SizedBox.expand(
         child: Stack(
@@ -22,7 +25,7 @@ class ProductPage extends StatelessWidget {
               end: 0.0,
               height: IMAGE_HEIGHT,
               child: Image.network(
-                'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=1310&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                product.picture ?? '',
                 fit: BoxFit.cover,
                 cacheHeight:
                     (IMAGE_HEIGHT * MediaQuery.devicePixelRatioOf(context))
@@ -46,13 +49,13 @@ class ProductPage extends StatelessWidget {
                   vertical: 30.0,
                 ),
                 child: Column(
-                  crossAxisAlignment: .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(product.name ?? '', style: context.theme.title1),
                     Text(
-                      'Petits pois et carottes',
-                      style: context.theme.title1,
+                      product.brands?.join(', ') ?? '',
+                      style: context.theme.title2,
                     ),
-                    Text('Cassegrain', style: context.theme.title2),
                     Scores(),
                   ],
                 ),
@@ -70,26 +73,34 @@ class Scores extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product = ProductInheritedWidget.of(context).product;
+
     return Column(
       children: [
         IntrinsicHeight(
           child: Row(
-            crossAxisAlignment: .start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 flex: 44,
-                child: _Nutriscore(nutriscore: ProductNutriScore.B),
+                child: _Nutriscore(
+                  nutriscore: product.nutriScore ?? ProductNutriScore.unknown,
+                ),
               ),
               VerticalDivider(),
               Expanded(
                 flex: 56,
-                child: _NovaGroup(novaScore: ProductNovaScore.group4),
+                child: _NovaGroup(
+                  novaScore: product.novaScore ?? ProductNovaScore.unknown,
+                ),
               ),
             ],
           ),
         ),
         Divider(),
-        _GreenScore(greenScore: ProductGreenScore.A),
+        _GreenScore(
+          greenScore: product.greenScore ?? ProductGreenScore.unknown,
+        ),
       ],
     );
   }
@@ -231,97 +242,5 @@ class _GreenScore extends StatelessWidget {
       ProductGreenScore.F => 'Impact environnemental très élevé',
       ProductGreenScore.unknown => 'Score non calculé',
     };
-  }
-}
-
-class Test extends StatefulWidget {
-  const Test({super.key});
-
-  @override
-  State<Test> createState() => _TestState();
-}
-
-class _TestState extends State<Test> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.network(
-              'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=1310&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          //Al
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 10.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.3),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(Icons.arrow_back, color: Colors.white),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.3),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(Icons.reply, color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-              ),
-              padding: const EdgeInsets.only(
-                top: 30.0,
-                left: 20.0,
-                right: 20.0,
-                bottom: 40.0,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Toast Avocat & oeuf',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1A1A4C),
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    'Cassegrain',
-                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

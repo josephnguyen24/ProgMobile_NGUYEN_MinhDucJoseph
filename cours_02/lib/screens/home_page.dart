@@ -6,8 +6,6 @@ import 'package:formation_flutter/res/app_icons.dart';
 import 'package:formation_flutter/res/app_vectorial_images.dart';
 import 'product_page.dart';
 
-///test
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 

@@ -1,0 +1,10 @@
+^C:\USERS\MINH DUC\GITHUB\PROGMOBILE_NGUYEN_MINHDUCJOSEPH\COURS_02\BUILD\WINDOWS\X64\CMAKEFILES\F5E7A8A1A74927774D71FAA8B73D0934\INSTALL_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

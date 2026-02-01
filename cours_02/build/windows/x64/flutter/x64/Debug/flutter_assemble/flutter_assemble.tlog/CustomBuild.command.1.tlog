@@ -1,0 +1,28 @@
+^C:\USERS\MINH DUC\GITHUB\PROGMOBILE_NGUYEN_MINHDUCJOSEPH\COURS_02\BUILD\WINDOWS\X64\CMAKEFILES\460FFA67184CFF6ADC93A0753A72C60F\FLUTTER_WINDOWS.DLL.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E env FLUTTER_ROOT=C:\flutter "PROJECT_DIR=C:\Users\Minh Duc\Github\ProgMobile_NGUYEN_MinhDucJoseph\cours_02" FLUTTER_ROOT=C:\flutter "FLUTTER_EPHEMERAL_DIR=C:\Users\Minh Duc\Github\ProgMobile_NGUYEN_MinhDucJoseph\cours_02\windows\flutter\ephemeral" "PROJECT_DIR=C:\Users\Minh Duc\Github\ProgMobile_NGUYEN_MinhDucJoseph\cours_02" "FLUTTER_TARGET=C:\Users\Minh Duc\Github\ProgMobile_NGUYEN_MinhDucJoseph\cours_02\lib\main.dart" DART_DEFINES=RkxVVFRFUl9WRVJTSU9OPTMuMzguNw==,RkxVVFRFUl9DSEFOTkVMPXN0YWJsZQ==,RkxVVFRFUl9HSVRfVVJMPWh0dHBzOi8vZ2l0aHViLmNvbS9mbHV0dGVyL2ZsdXR0ZXIuZ2l0,RkxVVFRFUl9GUkFNRVdPUktfUkVWSVNJT049M2I2MmVmYzJhMw==,RkxVVFRFUl9FTkdJTkVfUkVWSVNJT049NzhmYzMwMTJlNA==,RkxVVFRFUl9EQVJUX1ZFUlNJT049My4xMC43 DART_OBFUSCATION=false TRACK_WIDGET_CREATION=true TREE_SHAKE_ICONS=false "PACKAGE_CONFIG=C:\Users\Minh Duc\Github\ProgMobile_NGUYEN_MinhDucJoseph\cours_02\.dart_tool\package_config.json" C:/flutter/packages/flutter_tools/bin/tool_backend.bat windows-x64 Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\MINH DUC\GITHUB\PROGMOBILE_NGUYEN_MINHDUCJOSEPH\COURS_02\BUILD\WINDOWS\X64\CMAKEFILES\8B289ACC55FEAA031B6DE34E0C775AB2\FLUTTER_ASSEMBLE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\MINH DUC\GITHUB\PROGMOBILE_NGUYEN_MINHDUCJOSEPH\COURS_02\WINDOWS\FLUTTER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SC:/Users/Minh Duc/Github/ProgMobile_NGUYEN_MinhDucJoseph/cours_02/windows" "-BC:/Users/Minh Duc/Github/ProgMobile_NGUYEN_MinhDucJoseph/cours_02/build/windows/x64" --check-stamp-file "C:/Users/Minh Duc/Github/ProgMobile_NGUYEN_MinhDucJoseph/cours_02/build/windows/x64/flutter/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
