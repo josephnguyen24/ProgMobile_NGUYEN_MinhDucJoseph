@@ -4,9 +4,6 @@ import 'package:formation_flutter/l10n/app_localizations.dart';
 import 'package:formation_flutter/res/app_colors.dart';
 import 'package:formation_flutter/res/app_icons.dart';
 import 'package:formation_flutter/res/app_vectorial_images.dart';
-import 'product_page.dart';
-
-///test
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -52,14 +49,7 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(22.0)),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProductPage(),
-                    ),
-                  );
-                },
+                onPressed: () {},
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
